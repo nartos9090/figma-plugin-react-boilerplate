@@ -3,7 +3,7 @@ import * as esbuild from 'esbuild'
 const isWatch = process.argv.includes('--watch')
 
 const buildOptions = {
-  entryPoints: ['backend/code.ts'],
+  entryPoints: ['api/code.ts'],
   bundle: true,
   outfile: 'dist/code.js',
   format: 'cjs',
@@ -16,7 +16,7 @@ const buildOptions = {
       setup(build) {
         build.onEnd(result => {
           if (result.errors.length === 0) {
-            console.log(`✅ [${new Date().toLocaleTimeString()}] Backend rebuilt successfully.`)
+            console.log(`✅ [${new Date().toLocaleTimeString()}] api rebuilt successfully.`)
           } else {
             console.error('❌ Rebuild had errors')
           }
@@ -30,10 +30,10 @@ async function run() {
   if (isWatch) {
     const ctx = await esbuild.context(buildOptions)
     await ctx.watch()
-    console.log('👀 Watching backend for changes...')
+    console.log('👀 Watching api for changes...')
   } else {
     await esbuild.build(buildOptions)
-    console.log('✅ Backend build complete')
+    console.log('✅ api build complete')
   }
 }
 

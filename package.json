@@ -5,10 +5,10 @@
   "scripts": {
     "build:ui": "vite build",
     "build:ui:watch": "vite build --watch",
-    "build:backend": "node build-backend.js",
-    "build:backend:watch": "node build-backend.js --watch",
-    "watch": "concurrently \"npm run build:ui:watch\" \"npm run build:backend:watch\"",
-    "build": "npm run build:ui && npm run build:backend"
+    "build:api": "node build-api.js",
+    "build:api:watch": "node build-api.js --watch",
+    "watch": "concurrently \"npm run build:ui:watch\" \"npm run build:api:watch\"",
+    "build": "npm run build:ui && npm run build:api"
   },
   "author": "",
   "license": "ISC",

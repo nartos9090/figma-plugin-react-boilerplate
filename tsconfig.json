@@ -13,9 +13,9 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["ui/*"],
-      "@backend/*": ["backend/*"]
+      "@api/*": ["api/*"]
     },
     "types": ["@figma/plugin-typings"]
   },
-  "include": ["ui", "backend", "declarations.d.ts", "tailwind.config.cjs"]
+  "include": ["ui", "api", "declarations.d.ts", "tailwind.config.cjs"]
 }
