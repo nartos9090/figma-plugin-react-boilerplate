@@ -1,4 +1,4 @@
-# Figma Plugin: Asmoday
+# Figma Plugin React Boilerplate
 
 A modern Figma plugin boilerplate using **React**, **Tailwind CSS**, and **Vite**, built to output a single `ui.html` and `code.js` ready for Figma.
 
