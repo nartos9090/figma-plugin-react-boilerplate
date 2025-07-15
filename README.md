@@ -1,10 +1,10 @@
-# 🧩 Figma Plugin React Boilerplate
+# Figma Plugin: Asmoday
 
 A modern Figma plugin boilerplate using **React**, **Tailwind CSS**, and **Vite**, built to output a single `ui.html` and `code.js` ready for Figma.
 
-## 📁 Folder Structure
+## Project Structure
 
-````
+```
 .
 ├── api/                   # Handles plugin logic, runs in Figma plugin sandbox
 │   └── code.ts            # Listens for messages and manipulates the Figma document
@@ -12,77 +12,73 @@ A modern Figma plugin boilerplate using **React**, **Tailwind CSS**, and **Vite*
 ├── ui/                    # React-based UI rendered in Figma iframe
 │   ├── assets/            # Static assets (images, icons, etc.)
 │   ├── components/        # React components (buttons, modals, etc.)
-│   ├── index.css          # Main css file
+│   ├── index.css
 │   ├── index.html
-│   └── main.tsx           # Main react file
+│   └── main.tsx
 │
 ├── dist/                  # Final plugin build output
 │   ├── ui.html            # Single inlined HTML file for Figma UI
-│   └── code.js            # api logic bundled with esbuild
+│   └── code.js            # Api logic bundled with esbuild
 │
-├── build-api.ts       # esbuild script to bundle api
+├── build-api.js           # esbuild script to bundle api
 ├── manifest.json          # Figma plugin manifest definition
-├── postcss.config.js      # Tailwind + Autoprefixer setup
-├── tailwind.config.js     # Tailwind scanning config
+├── postcss.config.cjs     # Tailwind + Autoprefixer setup
+├── tailwind.config.cjs    # Tailwind scanning config
 ├── vite.config.ts         # Vite + SingleFile config for UI
 └── tsconfig.json          # Shared TypeScript setup
-````
+```
 
-## 🎨 UI (Frontend)
+## UI (Frontend)
 
-- **Runs inside an iframe** in Figma
-- Built with **React + Tailwind CSS**
-- Bundled using **Vite** with `vite-plugin-singlefile` to produce one `ui.html`
-- Used to interact with the user: buttons, inputs, previews, etc.
+The UI component runs inside an iframe within Figma and is built with React and Tailwind CSS. It is bundled using Vite with `vite-plugin-singlefile` to produce a single `ui.html` file. The UI handles user interactions such as buttons, inputs, and previews.
 
-### ✅ Tailwind Usage
+### Tailwind CSS Configuration
 
-1. Add classes directly in your JSX:
-   ````tsx
-   <button className="bg-blue-500 text-white px-4 py-2 rounded">
-     Click me
-   </button>
-   ````
+Add classes directly in your JSX components:
 
-2. Tailwind directives in `ui/index.css`:
-   ```css
-   @import "tailwindcss";
+```tsx
+<button className="bg-blue-500 text-white px-4 py-2 rounded">
+  Click me
+</button>
+```
 
-   ...(your css)
-   ```
+Configure Tailwind directives in `ui/index.css`:
 
-3. Make sure `index.css` is imported in your `main.tsx`:
-   ````ts
-   import './index.css'
-   ````
+```css
+@import "tailwindcss";
+```
 
-## 🖼 Adding Assets (Images, Icons, etc.)
+Import the CSS file in your `main.tsx`:
 
-### ✅ UI Images
+```ts
+import './index.css'
+```
+
+## Asset Management
+
+### UI Images
 
 1. Place assets such as image files in: `ui/assets/`
 2. Import them in React. It will be automatically converted to base64.
-   ```tsx
-   import logo from './assets/logo.png'
-   <img src={logo} alt="Logo" />
-   ```
+```tsx
+import logo from './assets/logo.png'
+<img src={logo} alt="Logo" />
+```
 
-✅ Vite will inline them in the final `ui.html`.
+Vite will automatically inline these assets in the final `ui.html` file.
 
-### ❗ No Public Folder
+### Important Note
 
-Since we're generating a single-file HTML, no public folder is used — all images must be imported into components so Vite can inline them.
+Since the build process generates a single-file HTML output, no public folder is used. All images must be imported into components so Vite can properly inline them.
 
-## 🧠 API (Figma Sandbox)
+## Api (Figma Sandbox)
 
-- Runs inside Figma's plugin sandbox (not the iframe)
-- No DOM access — only `figma` API and `postMessage`
-- Handles document operations: nodes, fills, fonts, layout, etc.
-- Bundled into `dist/code.js` using esbuild
+The api runs inside Figma's plugin sandbox environment, separate from the iframe. It has no DOM access and can only use the `figma` API and `postMessage` communication. The api handles document operations including nodes, fills, fonts, and layout management. It is bundled into `dist/code.js` using esbuild.
 
-### ✅ Creating Handlers
+### Creating Message Handlers
 
-In `api/code.ts`:
+Configure message handlers in `api/code.ts`:
+
 ```ts
 figma.ui.onmessage = (msg) => {
   if (msg.type === 'create-rect') {
@@ -93,26 +89,30 @@ figma.ui.onmessage = (msg) => {
 }
 ```
 
-## 🧩 Why Separate UI and api?
+## Architecture Overview
 
-| UI (iframe) | api (plugin sandbox) |
+The plugin architecture separates concerns between UI and api components:
+
+| UI (iframe) | Api (plugin sandbox) |
 |-------------|-------------------------|
 | Built with React | Uses only TypeScript |
-| Handles user interaction | Talks to the Figma document API |
-| Uses DOM, Tailwind, events | No DOM — can only use figma API |
+| Handles user interaction | Communicates with Figma document API |
+| Uses DOM, Tailwind, events | No DOM access — only figma API |
 | Sends messages to api | Listens and responds via figma.ui |
 
-You must use `postMessage` between the two:
+Communication between UI and api occurs through `postMessage`:
 
 ```ts
 // In UI:
 parent.postMessage({ pluginMessage: { type: 'create-rect' } }, '*')
 
-// In api:
-figma.ui.onmessage = (msg) => { /* handle it */ }
+// In Api:
+figma.ui.onmessage = (msg) => { /* handle message */ }
 ```
 
-## 🚀 Getting Started
+## Getting Started
+
+Install dependencies and build the plugin:
 
 ```bash
 # Installation
@@ -125,16 +125,17 @@ npm run watch
 npm run build
 ```
 
-Then in Figma Desktop:
-1. **Plugins** → **Development** → **Import plugin from manifest...**
-2. Select `manifest.json`
+To install in Figma Desktop:
+
+1. Navigate to **Plugins** → **Development** → **Import plugin from manifest...**
+2. Select the `manifest.json` file
 3. Run the plugin in Figma
 
-## 🔨 Dev Scripts
+## Development Scripts
 
 | Script | Description |
 |--------|-------------|
 | `build` | Build both UI and api |
-| `watch` | Watch UI and api live |
-| `build:ui` | Build ui.html |
-| `build:api` | Build code.js |
+| `watch` | Watch UI and api for live development |
+| `build:ui` | Build ui.html only |
+| `build:api` | Build code.js only |
