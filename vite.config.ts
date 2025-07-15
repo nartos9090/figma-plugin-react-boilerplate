@@ -5,11 +5,11 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 export default defineConfig({
   root: 'ui',
   build: {
-    outDir: '../dist', // final ui.html goes in ./dist
+    outDir: '../dist',
     emptyOutDir: false,
-    assetsDir: '', // required for single HTML output
+    assetsDir: '',
     rollupOptions: {
-      input: 'ui/index.html', // entry HTML
+      input: 'ui/index.html',
     },
   },
   plugins: [react(), viteSingleFile()],
