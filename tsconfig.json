@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "es6",
     "jsx": "react-jsx",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -12,12 +12,10 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["*", "ui/*", "backend/*"]
+      "@ui/*": ["ui/*"],
+      "@backend/*": ["backend/*"]
     },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@figma"
-    ]
+    "types": ["@figma/plugin-typings"]
   },
-  "include": ["ui", "backend"]
+  "include": ["ui", "backend", "declarations.d.ts", "tailwind.config.js"]
 }

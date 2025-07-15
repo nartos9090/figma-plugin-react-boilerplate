@@ -4,17 +4,12 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 
 export default defineConfig({
   root: 'ui',
-  base: '',
   build: {
-    outDir: '../dist',
-    assetsInlineLimit: Infinity,
-    cssCodeSplit: false,
+    outDir: '../dist', // final ui.html goes in ./dist
+    emptyOutDir: false,
+    assetsDir: '', // required for single HTML output
     rollupOptions: {
-      input: 'ui/index.html',
-      output: {
-        entryFileNames: 'ui.js',
-        assetFileNames: 'assets/[name][extname]',
-      },
+      input: 'ui/index.html', // entry HTML
     },
   },
   plugins: [react(), viteSingleFile()],
