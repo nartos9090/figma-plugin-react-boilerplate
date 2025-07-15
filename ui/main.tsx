@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom/client'
+import logo from './assets/logo.png'
 
 const App = () => {
   const sendMessage = () => {
@@ -8,6 +9,7 @@ const App = () => {
   return (
     <div>
       <h1>Hello Figma Plugin!</h1>
+      <img src={logo} alt="Logo" style={{ width: '100px', height: '100px' }} />
       <button onClick={sendMessage}>Send to Backend</button>
     </div>
   )
