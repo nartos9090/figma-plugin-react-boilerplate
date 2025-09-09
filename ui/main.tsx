@@ -2,10 +2,11 @@ import './index.css'
 import ReactDOM from 'react-dom/client'
 import logo from './assets/logo.png'
 import Sidebar from './components/Sidebar'
+import { api } from './lib/api'
 
 const App = () => {
   const sendMessage = () => {
-    parent.postMessage({ pluginMessage: { type: 'greet', text: 'Hello from UI!' } }, '*')
+    api("greet", { text: "Hello from the UI!" })
   }
 
   return (

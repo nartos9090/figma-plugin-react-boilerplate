@@ -1,6 +1,8 @@
+import { api } from "@ui/lib/api";
+
 export default function Sidebar() {
   const sendMessage = () => {
-    figma.ui.postMessage({ type: 'send-to-api', payload: 'Hello from Sidebar!' });
+    api("greet", { name: "Asmoday" });
   };
 
   return (

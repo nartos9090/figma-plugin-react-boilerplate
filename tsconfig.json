@@ -17,5 +17,5 @@
     },
     "types": ["@figma/plugin-typings"]
   },
-  "include": ["ui", "api", "declarations.d.ts", "tailwind.config.cjs"]
+  "include": ["ui", "api", "declarations.d.ts"]
 }
